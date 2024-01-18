@@ -12,6 +12,7 @@ import com.kodarovs.qivvi.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -23,12 +24,13 @@ public class WalletService {
     private final OperationRepository operationRepository;
     private final WalletRepository walletRepository;
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public BigDecimal getBalance(long walletId) {
         Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new RuntimeException("Wallet not found"));
         return wallet.getBalance();
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateWallet(OperationDTO operationDto) {
         Wallet wallet = walletRepository.findById(operationDto.getValletId())
                 .orElseThrow(() -> new WalletNotFoundException("Wallet not found!"));

@@ -3,9 +3,7 @@
 --changeset 1 kodarov_s: transactionType
 CREATE TYPE transaction_type AS ENUM (
     'DEPOSIT',
-    'WITHDRAW',
-    'TRANSFER',
-    'PAYMENT');
+    'WITHDRAW');
 
 --changeset 2 kodarov_s: wallets
 CREATE TABLE wallets
@@ -24,5 +22,8 @@ CREATE TABLE operations
     wallets_id     BIGINT           NOT NULL,
     FOREIGN KEY (wallets_id) REFERENCES wallets (id)
 );
+
+--changeset 4 kodarov_s: testwallet
+INSERT INTO wallets(balance) VALUES (1000);
 
 
