@@ -1,1 +1,10 @@
+version: "3.8"
 services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: "qivvi"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"
