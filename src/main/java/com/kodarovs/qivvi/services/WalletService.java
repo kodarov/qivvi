@@ -4,6 +4,9 @@ import com.kodarovs.qivvi.dto.OperationDTO;
 import com.kodarovs.qivvi.entities.Operation;
 import com.kodarovs.qivvi.entities.TransactionType;
 import com.kodarovs.qivvi.entities.Wallet;
+import com.kodarovs.qivvi.exceptions.InsufficientFundsException;
+import com.kodarovs.qivvi.exceptions.UnsupportedTransactionTypeException;
+import com.kodarovs.qivvi.exceptions.WalletNotFoundException;
 import com.kodarovs.qivvi.repositories.OperationRepository;
 import com.kodarovs.qivvi.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,7 @@ public class WalletService {
     @Transactional
     public void updateWallet(OperationDTO operationDto) {
         Wallet wallet = walletRepository.findById(operationDto.getValletId())
-                .orElseThrow(() -> new RuntimeException("Wallet not found"));
+                .orElseThrow(() -> new WalletNotFoundException("Wallet not found!"));
         Operation operation = new Operation();
         operation.setWallet(wallet);
         switch (operationDto.getTransactionType()) {
@@ -40,13 +43,13 @@ public class WalletService {
             case WITHDRAW -> {
                 BigDecimal balance = wallet.getBalance().subtract(operationDto.getAmount());
                 if (balance.compareTo(BigDecimal.ZERO) < 0) {
-                    throw new RuntimeException("Insufficient funds!");
+                    throw new InsufficientFundsException("Insufficient funds!");
                 }
                 operation.setOperation(TransactionType.WITHDRAW);
                 operation.setAmount(operationDto.getAmount());
                 wallet.setBalance(balance);
             }
-            default -> throw new RuntimeException("Unsupported transaction type!");
+            default -> throw new UnsupportedTransactionTypeException("Unsupported transaction type!");
         }
         operationRepository.save(operation);
         walletRepository.save(wallet);

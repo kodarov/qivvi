@@ -18,7 +18,7 @@ public class WalletController {
     private final WalletService walletService;
 
     @PostMapping("/wallet")
-    public ResponseEntity<?> updateWallet(@RequestBody OperationDTO operationDTO) {
+    public ResponseEntity<?> updateWallet(@Valid @RequestBody OperationDTO operationDTO) {
         try {
             walletService.updateWallet(operationDTO);
             return new ResponseEntity<>(HttpStatus.OK);
