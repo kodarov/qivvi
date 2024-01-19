@@ -8,3 +8,17 @@ services:
       POSTGRES_PASSWORD: "admin"
     ports:
       - "5432:5432"
+  wallet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/qivvi
+        - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+        - SPRING_DATASOURCE_USERNAME=admin
+        - SPRING_DATASOURCE_PASSWORD=admin
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

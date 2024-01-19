@@ -5,11 +5,12 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 public class OperationDTO {
     @NotNull(message = "Please provide a wallet ID")
-    private long valletId;
+    private UUID valletId;
     @NotNull(message = "Please provide a transaction type")
     private TransactionType transactionType;
     @NotNull(message = "Please provide an amount")

@@ -8,7 +8,7 @@ CREATE TYPE transaction_type AS ENUM (
 --changeset 2 kodarov_s: wallets
 CREATE TABLE wallets
 (
-    id      BIGSERIAL PRIMARY KEY,
+    id      UUID PRIMARY KEY,
     balance NUMERIC NOT NULL
 );
 
@@ -19,11 +19,8 @@ CREATE TABLE operations
     operation      transaction_type NOT NULL,
     operation_date TIMESTAMP        NOT NULL DEFAULT CURRENT_DATE,
     amount         NUMERIC          NOT NULL,
-    wallets_id     BIGINT           NOT NULL,
+    wallets_id     UUID          NOT NULL,
     FOREIGN KEY (wallets_id) REFERENCES wallets (id)
 );
-
---changeset 4 kodarov_s: testwallet
-INSERT INTO wallets(balance) VALUES (1000);
 
 
