@@ -71,7 +71,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenDeposit1000ThenResponse200() throws Exception {
+    void whenDeposit1000ThenResponse200() {
         OperationDTO operationDeposit = new OperationDTO();
         operationDeposit.setValletId(walletId1);
         operationDeposit.setTransactionType(TransactionType.DEPOSIT);
@@ -89,7 +89,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenDepositMinus1000ThenResponse400() throws Exception {
+    void whenDepositMinus1000ThenResponse400() {
         OperationDTO operationDeposit = new OperationDTO();
         operationDeposit.setValletId(walletId2);
         operationDeposit.setTransactionType(TransactionType.DEPOSIT);
@@ -106,7 +106,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenWalletUUIDNotFoundThenResponse404() throws Exception {
+    void whenWalletUUIDNotFoundThenResponse404() {
         OperationDTO operationDeposit = new OperationDTO();
         UUID subWalletId = UUID.randomUUID();
         operationDeposit.setValletId(subWalletId);
@@ -122,7 +122,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenWithdrawMoreBalanceThenResponse403() throws Exception {
+    void whenWithdrawMoreBalanceThenResponse403() {
         OperationDTO operationDeposit = new OperationDTO();
         operationDeposit.setValletId(walletId3);
         operationDeposit.setTransactionType(TransactionType.WITHDRAW);
@@ -137,7 +137,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenWithdraw10000ThenResponse200() throws Exception {
+    void whenWithdraw10000ThenResponse200() {
         OperationDTO operationDeposit = new OperationDTO();
         operationDeposit.setValletId(walletId3);
         operationDeposit.setTransactionType(TransactionType.WITHDRAW);
@@ -154,7 +154,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void whenInvalidJsonFormatThenResponse404() throws Exception {
+    void whenInvalidJsonFormatThenResponse404() {
         String invalidJson = "{invalidJson}";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
