@@ -55,7 +55,7 @@ class WalletControllerTest {
     }
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         walletId1 = UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
         walletId2 = UUID.fromString("550e8400-e29b-41d4-a716-446655440002");
         walletId3 = UUID.fromString("550e8400-e29b-41d4-a716-446655440003");
@@ -66,7 +66,7 @@ class WalletControllerTest {
     }
 
     @Test
-    void contextLoads() throws Exception {
+    void contextLoads() {
         assertThat(walletController).isNotNull();
     }
 
