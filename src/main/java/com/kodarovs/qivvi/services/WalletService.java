@@ -31,7 +31,7 @@ public class WalletService {
         return wallet.getBalance();
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void updateWallet(OperationDTO operationDto) {
         Wallet wallet = walletRepository.findById(operationDto.getValletId())
                 .orElseThrow(() -> new WalletNotFoundException("Wallet not found!"));
