@@ -23,4 +23,15 @@ CREATE TABLE operations
     FOREIGN KEY (wallets_id) REFERENCES wallets (id)
 );
 
+--changeset 4 kodarov_s: add_audit_fields_to_operations
+ALTER TABLE operations 
+ADD COLUMN balance_before NUMERIC(19,2),
+ADD COLUMN balance_after NUMERIC(19,2),
+ADD COLUMN operation_id VARCHAR(36) UNIQUE;
+
+--changeset 5 kodarov_s: add_indexes_to_operations
+CREATE INDEX idx_operations_wallet_id ON operations(wallets_id);
+CREATE INDEX idx_operations_date ON operations(operation_date);
+CREATE INDEX idx_operations_type ON operations(operation);
+
 

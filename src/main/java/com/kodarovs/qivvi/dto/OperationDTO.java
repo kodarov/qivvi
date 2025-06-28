@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class OperationDTO {
     @NotNull(message = "Please provide a wallet ID")
-    private UUID valletId;
+    private UUID walletId;
     @NotNull(message = "Please provide a transaction type")
     private TransactionType transactionType;
     @NotNull(message = "Please provide an amount")
